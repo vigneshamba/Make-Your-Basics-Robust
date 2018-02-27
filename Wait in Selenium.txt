@@ -1,0 +1,42 @@
+Types of Wait and thread.sleep
+
+Wait - Interface
+ |
+Fluent Wait - Class
+ |
+WebDriverWait - Class
+
+Implicit Wait
+
+An implicit wait is to tell WebDriver to poll the DOM for a certain amount of time when trying to find an element or elements if they are not immediately available. The default setting is 0. Once set, the implicit wait is set for the life of the WebDriver object instance.
+
+Syntax: driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+Explicit wait
+
+An explicit wait is code you define to wait for a certain condition to occur before proceeding further in the code.
+
+WebDriverWait by default calls the ExpectedCondition every 500 milliseconds until it returns successfully. A successful return value for the ExpectedCondition function type is a Boolean value of true
+
+Syntax: 
+WebDriverWait wait = new WebDriverWait(driver, 10);
+WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("someid")));
+
+Fluent wait
+
+Each FluentWait instance defines the maximum amount of time to wait for a condition, as well as the frequency with which to check the condition. 
+
+Furthermore, the user may configure the wait to ignore specific types of exceptions whilst waiting, such as NoSuchElementExceptions when searching for an element on the page. 
+
+Syntax:
+   Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+       .withTimeout(30, SECONDS)
+       .pollingEvery(5, SECONDS)
+       .ignoring(NoSuchElementException.class);
+
+   WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
+     public WebElement apply(WebDriver driver) {
+       return driver.findElement(By.id("foo"));
+     }
+   });
+ 
